@@ -1,6 +1,6 @@
 import React from "react";
 
-const AuthIcon = () => {
+const AuthDecoracion = () => {
     return (
         <>
             <div className="absolute hidden opacity-50 ltr:-left-16 rtl:-right-16 -top-10 md:block">
@@ -46,4 +46,4 @@ const AuthIcon = () => {
     );
 }
 
-export default AuthIcon;
+export default AuthDecoracion;

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import AuthIcon from "../pages/Autenticacion/AuthIcon";
 import React from "react";
+import AuthDecoracion from "../components/AuthDecoracion";
 const AuthLayout = () => {
 
     document.title = "Login | RegiSalud";
@@ -16,7 +16,7 @@ const AuthLayout = () => {
     return (
         <>
             <div className="relative">
-                <AuthIcon/>
+                <AuthDecoracion/>
                 <div className="mb-0 w-screen lg:mx-auto lg:w-[500px] card shadow-lg border-none shadow-slate-100 relative">
                     <Outlet/>
                 </div>
