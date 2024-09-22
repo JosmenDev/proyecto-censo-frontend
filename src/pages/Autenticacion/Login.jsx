@@ -1,14 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import logoRegiSalud from "../../assets/images/logo-regi-salud.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import clienteAxios from "../../config/axios";
+import Alerta from "../../config/Alerta";
 
 export const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm( {mode: "onChange"});
 
-    const onSubmit = (data) => {
-        console.log('Despues de la validacion', data);
+    useAuth();
+
+    const { register, handleSubmit, formState: { errors } } = useForm( {mode: "onChange"});
+    const [ alerta, setAlerta ] = useState({});
+
+    const navigate = useNavigate();
+
+    const onSubmit = async (formData) => {
+        // const { username, password } = formData;
+        try {
+            const { data } = await clienteAxios.post('/auth/login', formData);
+            console.log('Despues de la validacion', data.token);
+            setAlerta({});
+            if (data.confirmado) {
+                localStorage.getItem('token', data.token);
+                navigate('/inicio');
+            }
+            else {
+                navigate(`/confirmar/${data.token}`);
+            }
+        } catch (error) {
+            // console.log(error.response.data.msg);
+            // errors.password.message = error.response.data.msg;
+            if (error.response && error.response.data.msg) {
+                setAlerta({
+                    msg: error.response.data.msg,
+                    error: true
+                });
+            }
+        }
     };
+
+    const { msg } = alerta;
 
     return (
         <>
@@ -20,9 +52,10 @@ export const Login = () => {
                     <h4 className="mb-1 text-sky-500">Bienvenido!</h4>
                     <p className="text-slate-500">Ingresa tus credenciales para iniciar sesión.</p>
                 </div>
+                { msg && (<Alerta alerta={alerta}/>)}
                 <form 
                     onSubmit={handleSubmit(onSubmit)} 
-                    className="mt-10" 
+                    className="mt-8" 
                     id="signInForm"
                 >
                     <div className="mb-3">

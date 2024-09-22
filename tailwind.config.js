@@ -9,6 +9,7 @@ export default {
   content: [
     "./public/index.html",
     "./src/**/*.{js,ts,jsx,tsx}"
+
   ],
   darkMode: ['class', '[data-mode="dark"]'],
   theme: {
