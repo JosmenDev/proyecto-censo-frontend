@@ -53,7 +53,7 @@ export const Login = () => {
                 {msg && (<Alerta alerta={alerta} />)}
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-4">
-                        <label className="mb-2.5 block font-medium text-black dark:text-white">
+                        <label className="mb-2.5 block font-medium text-slate-500 dark:text-white">
                             Nombre de Usuario
                         </label>
                         <div className="relative">
@@ -68,14 +68,14 @@ export const Login = () => {
                                     }
                                 })}
                                 placeholder="Ingresa nombre de usuario"
-                                className={`w-full rounded-lg border bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-sky-400 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-sky ${errors.username ? 'border-red-500' : 'border-slate-200'}`}
+                                className={`w-full rounded-lg border bg-transparent py-3 pl-6 pr-10 text-slate-500 outline-none focus:border-sky-400 focus-visible:shadow-none  dark:bg-form-input dark:text-white dark:focus:border-sky ${errors.username ? 'border-red-500' : ' dark:border-form-strokedark border-slate-200'}`}
                             />
                             {errors.username && <span className="text-sm text-red-500">{errors.username.message}</span>}
                         </div>
                     </div>
     
                     <div className="mb-6">
-                        <label className="mb-2.5 block font-medium text-black dark:text-white">
+                        <label className="mb-2.5 block font-medium text-slate-500 dark:text-white">
                             Contraseña
                         </label>
                         <div className="relative">
@@ -83,7 +83,7 @@ export const Login = () => {
                                 type="password"
                                 id="password"
                                 {...register("password", { required: 'El campo "Contraseña" es obligatorio' })}
-                                className={`w-full rounded-lg border bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-sky-400 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-sky-400 ${errors.password ? 'border-red-500' : 'border-slate-200'}`}
+                                className={`w-full rounded-lg border bg-transparent py-3 pl-6 pr-10 text-slate-500 outline-none focus:border-sky-400 focus-visible:shadow-none  dark:bg-form-input dark:text-white dark:focus:border-sky-400 ${errors.password ? 'border-red-500' : 'dark:border-form-strokedark border-slate-200'}`}
                                 placeholder="Ingresa contraseña"
                             />
                             {errors.password && <span className="text-sm text-red-500">{errors.password.message}</span>}
