@@ -1,28 +1,19 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import React from "react";
-import AuthDecoracion from "../components/AuthDecoracion";
+import LogoRegiSalud from "../assets/images/logo-regi-salud.svg";
+
 const AuthLayout = () => {
-
-    document.title = "Login | RegiSalud";
-
-    React.useEffect(() => {
-        const bodyElement = document.body;
-        const classes = ['flex', 'items-center', 'justify-center', 'min-h-screen', 'py-16', 'lg:py-10', 'bg-slate-50', 'font-public'];
-        bodyElement.classList.add(...classes);
-
-        return () => bodyElement.classList.remove(...classes);
-    }, []);
-
     return (
-        <>
-            <div className="relative">
-                <AuthDecoracion/>
-                <div className="mb-0 w-screen lg:mx-auto lg:w-[500px] card shadow-lg border-none shadow-slate-100 relative">
-                    <Outlet/>
-                </div>
+        <div className="font-montserrat text-sm flex min-h-screen items-center justify-center bg-gray-100">
+            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark w-full max-w-lg flex flex-col items-center justify-center p-6">
+                <Link className="inline-block w-60 mb-5" to="/">
+                    <img className="hidden dark:block" src={LogoRegiSalud} alt="Logo" />
+                    <img className="dark:hidden" src={LogoRegiSalud} alt="Logo" />
+                </Link>
+                <Outlet />
             </div>
-        </>
-    )
-}
+        </div>
+    );
+};
 
-export default AuthLayout
+export default AuthLayout;

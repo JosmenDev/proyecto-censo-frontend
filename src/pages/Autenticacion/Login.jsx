@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import logoRegiSalud from "../../assets/images/logo-regi-salud.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import clienteAxios from "../../config/axios";
-import Alerta from "../../config/Alerta";
+import Alerta from "../../components/Alerta";
 
 export const Login = () => {
 
@@ -22,12 +21,14 @@ export const Login = () => {
             console.log('Despues de la validacion', data.token);
             setAlerta({});
             if (data.confirmado) {
-                localStorage.getItem('token', data.token);
-                navigate('/inicio');
+                localStorage.setItem('token', data.token);
+                console.log('Usuario confirmado');
+                navigate('/admin');
             }
             else {
                 navigate(`/confirmar/${data.token}`);
             }
+            setAlerta({});
         } catch (error) {
             // console.log(error.response.data.msg);
             // errors.password.message = error.response.data.msg;
@@ -44,55 +45,61 @@ export const Login = () => {
 
     return (
         <>
-            <div className="!px-10 !py-12 card-body">
-                <Link to="/">
-                    <img src={logoRegiSalud} alt="Logo de RegiSalud" className="block h-44 mx-auto" />
-                </Link>
-                <div className="mt-8 text-center">
-                    <h4 className="mb-1 text-sky-500">Bienvenido!</h4>
-                    <p className="text-slate-500">Ingresa tus credenciales para iniciar sesión.</p>
-                </div>
-                { msg && (<Alerta alerta={alerta}/>)}
-                <form 
-                    onSubmit={handleSubmit(onSubmit)} 
-                    className="mt-8" 
-                    id="signInForm"
-                >
-                    <div className="mb-3">
-                        <label htmlFor="username" className="inline-block mb-2 text-base font-medium">Nombre de Usuario</label>
-                        <input 
-                            type="text" 
-                            id="username"
-                            {...register("username", { 
-                                required: 'El campo "Nombre de Usuario" es obligatorio',
-                                pattern: {
-                                    value: /^[0-9]{8}$/,
-                                    message: 'El "Nombre de Usuario" debe ser numérico y de 8 dígitos'
-                                }
-                            })}
-                            className={`form-input focus:outline-none focus:border-custom-500 ${errors.username ? 'border-red-500' : 'border-slate-200'}`} 
-                            placeholder="Ingresa nombre de usuario"
-                        />
-                        {errors.username && <span className="text-sm text-red-500">{errors.username.message}</span>}
+            <div className="w-full p-4 sm:p-12.5 xl:p-4">
+                <span className="mb-1.5 block font-semibold text-sky-500 text-2xl text-center"> Bienvenido </span>
+                <h2 className="mb-6 text-base font-semibold text-slate-500 dark:text-white sm:text-base text-center">
+                   Inicia Sesión para continuar en RegiSalud
+                </h2>
+                {msg && (<Alerta alerta={alerta} />)}
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="mb-4">
+                        <label className="mb-2.5 block font-medium text-black dark:text-white">
+                            Nombre de Usuario
+                        </label>
+                        <div className="relative">
+                            <input
+                                type="text"
+                                id="username"
+                                {...register("username", {
+                                    required: 'El campo "Nombre de Usuario" es obligatorio',
+                                    pattern: {
+                                        value: /^[0-9]{8}$/,
+                                        message: 'El "Nombre de Usuario" debe ser numérico y de 8 dígitos'
+                                    }
+                                })}
+                                placeholder="Ingresa nombre de usuario"
+                                className={`w-full rounded-lg border bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-sky-400 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-sky ${errors.username ? 'border-red-500' : 'border-slate-200'}`}
+                            />
+                            {errors.username && <span className="text-sm text-red-500">{errors.username.message}</span>}
+                        </div>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="inline-block mb-2 text-base font-medium">Contraseña</label>
-                        <input 
-                            type="password" 
-                            id="password"
-                            {...register("password", { required: 'El campo "Contraseña" es obligatorio' })}
-                            className={`form-input  focus:outline-none focus:border-custom-500 ${errors.password ? 'border-red-500' : 'border-slate-200'}`} 
-                            placeholder="Ingresa contraseña" 
-                        />
-                        {errors.password && <span className="text-sm text-red-500">{errors.password.message}</span>}
+    
+                    <div className="mb-6">
+                        <label className="mb-2.5 block font-medium text-black dark:text-white">
+                            Contraseña
+                        </label>
+                        <div className="relative">
+                            <input
+                                type="password"
+                                id="password"
+                                {...register("password", { required: 'El campo "Contraseña" es obligatorio' })}
+                                className={`w-full rounded-lg border bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-sky-400 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-sky-400 ${errors.password ? 'border-red-500' : 'border-slate-200'}`}
+                                placeholder="Ingresa contraseña"
+                            />
+                            {errors.password && <span className="text-sm text-red-500">{errors.password.message}</span>}
+                        </div>
                     </div>
-                    <div className="mt-10">
-                        <button type="submit" className="w-full text-white btn bg-sky-500 border-sky-500 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-100 active:text-white active:bg-sky-600 active:border-sky-600 active:ring active:ring-sky-100">
-                            Ingresar
-                        </button>
+    
+                    <div className="mb-5">
+                        <input
+                            type="submit"
+                            value="Ingresar"
+                            className="w-full cursor-pointer rounded-lg border border-sky-500 bg-sky-400 p-2 text-white transition hover:bg-opacity-90"
+                        />
                     </div>
                 </form>
             </div>
         </>
     );
+    
 };

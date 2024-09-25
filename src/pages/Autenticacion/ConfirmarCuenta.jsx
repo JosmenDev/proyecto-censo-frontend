@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
-import logoRegiSalud from "../../assets/images/logo-regi-salud.svg";
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import clienteAxios from '../../config/axios';
-import Alerta from '../../config/Alerta';
+import Alerta from '../../components/Alerta';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
@@ -68,75 +67,82 @@ const ConfirmarCuenta = () => {
   const { msg } = alerta;
   return (
     <>
-      <div className="!px-10 !py-12 card-body">
-        <Link to="/">
-            <img src={logoRegiSalud} alt="Logo de RegiSalud" className="block h-44 mx-auto" />
-        </Link>
-        <div className="mt-8 text-center">
-            <h4 className="mb-1 text-sky-500">Confirma tu cuenta!</h4>
-            <p className="text-slate-500">Actualiza tu contraseña para ingresar al sistema.</p>
-        </div>
-        {msg && (
-          <Alerta alerta={alerta}/>
-        )}
-        { tokenValido && (
-          <form 
-          onSubmit={handleSubmit(onSubmit)} 
-          className="mt-8" 
-          id="signInForm"
-          >
-          <div className="mb-3">
-            <label htmlFor="username" className="inline-block mb-2 text-base font-medium">Nombre de Usuario</label>
-            <input 
-                type="text" 
-                id="username"
-                value={username}
-                {...register("username")}
-                className={`form-input focus:outline-none focus:border-custom-50 read-only:bg-slate-50 ${errors.username ? 'border-red-500' : 'border-slate-200'}`} 
-                readOnly
-                placeholder="Ingresa nombre de usuario"
-            />
-            {errors.username && <span className="text-sm text-red-500">{errors.username.message}</span>}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="inline-block mb-2 text-base font-medium">Nueva Contraseña</label>
-            <input 
-                type="password" 
-                id="password"
-                {...register("password", { 
-                  required: 'El campo "Nueva Contraseña" es obligatorio', 
-                  minLength: {
-                    value: 6,
-                    message: 'La contraseña debe tener por lo menos 6 caracteres'
-                  }
-                })}
-                className={`form-input  focus:outline-none focus:border-custom-500 ${errors.password ? 'border-red-500' : 'border-slate-200'}`} 
-                placeholder="Ingresa nueva contraseña" 
-            />
-            {errors.password && <span className="text-sm text-red-500">{errors.password.message}</span>}
-          </div>
-          <div className="mb-3">
-            <label htmlFor="nuevoPassword" className="inline-block mb-2 text-base font-medium">Repetir Contraseña</label>
-            <input 
-                type="password" 
-                id="nuevoPassword"
-                {...register("nuevoPassword", { 
-                  required: 'El campo "Repetir Contraseña" es obligatorio',
-                  validate: value => value === password || 'Las contraseñas no coinciden'
-                })}
-                className={`form-input focus:outline-none focus:border-custom-500 ${errors.nuevoPassword ? 'border-red-500' : 'border-slate-200'}`} 
-                placeholder="Repite contraseña nueva" 
-            />
-            {errors.nuevoPassword && <span className="text-sm text-red-500">{errors.nuevoPassword.message}</span>}
-          </div>
-          <div className="mt-10">
-            <button type="submit" className="w-full text-white btn bg-sky-500 border-sky-500 hover:text-white hover:bg-sky-600 hover:border-sky-600 focus:text-white focus:bg-sky-600 focus:border-sky-600 focus:ring focus:ring-sky-100 active:text-white active:bg-sky-600 active:border-sky-600 active:ring active:ring-sky-100">
-                Actualizar Contraseña
-            </button>
-          </div>
+    <div className="w-full p-4 sm:p-12.5 xl:p-4">
+        <span className="mb-1.5 block font-semibold text-sky-500 text-2xl text-center"> Confirma tu cuenta </span>
+        <h2 className="mb-6 text-base font-semibold text-slate-500 dark:text-white sm:text-base text-center">
+          Actualiza tu cuenta para ingresar a RegiSalud
+        </h2>
+        {msg && (<Alerta alerta={alerta} />)}
+        { tokenValido && (<form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-4">
+                <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Nombre de Usuario
+                </label>
+                <div className="relative">
+                    <input
+                        type="text"
+                        id="username"
+                        value={username}
+                        {...register("username")}
+                        placeholder="Ingresa nombre de usuario"
+                        readOnly
+                        className={`w-full rounded-lg border bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-sky-400 focus-visible:shadow-none read-only:bg-slate-100 dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-sky ${errors.username ? 'border-red-500' : 'border-slate-200'}`}
+                    />
+                    {errors.username && <span className="text-sm text-red-500">{errors.username.message}</span>}
+                </div>
+            </div>
+
+            <div className="mb-6">
+                <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Nueva Contraseña
+                </label>
+                <div className="relative">
+                    <input
+                        type="password"
+                        id="password"
+                        {...register("password", { 
+                          required: 'El campo "Nueva Contraseña" es obligatorio', 
+                          minLength: {
+                            value: 6,
+                            message: 'La contraseña debe tener por lo menos 6 caracteres'
+                          }
+                        })}
+                        className={`w-full rounded-lg border bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-sky-400 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-sky-400 ${errors.password ? 'border-red-500' : 'border-slate-200'}`}
+                        placeholder="Ingresa nueva contraseña"
+                    />
+                    {errors.password && <span className="text-sm text-red-500">{errors.password.message}</span>}
+                </div>
+            </div>
+
+            <div className="mb-6">
+                <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Repetir Contraseña
+                </label>
+                <div className="relative">
+                    <input
+                        type="password"
+                        id="nuevoPassword"
+                        {...register("nuevoPassword", { 
+                          required: 'El campo "Repetir Contraseña" es obligatorio',
+                          validate: value => value === password || 'Las contraseñas no coinciden'
+                        })}
+                        className={`w-full rounded-lg border bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-sky-400 focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-sky-400 ${errors.password ? 'border-red-500' : 'border-slate-200'}`}                 
+                        placeholder="Repite contraseña nueva" 
+                    />
+                    {errors.nuevoPassword && <span className="text-sm text-red-500">{errors.nuevoPassword.message}</span>}
+                </div>
+            </div>
+
+            <div className="mb-5">
+                <input
+                    type="submit"
+                    value="Actualizar Contraseña"
+                    className="w-full cursor-pointer rounded-lg border border-sky-500 bg-sky-400 p-2 text-white transition hover:bg-opacity-90"
+                />
+            </div>
         </form>)}
     </div>
-    </>
+</>
   )
 }
 
