@@ -36,7 +36,6 @@ const ConfirmarCuenta = () => {
   },[]);
 
   const onSubmit = async (formData) => {
-    console.log(formData);
     try {
       const { data } = await clienteAxios.post(`/auth/confirmar/${token}`, formData);
       // console.log(data.msg);

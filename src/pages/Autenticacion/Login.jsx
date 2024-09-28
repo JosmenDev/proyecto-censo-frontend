@@ -7,7 +7,7 @@ import Alerta from "../../components/Alerta";
 
 export const Login = () => {
 
-    useAuth();
+    const { setAuth, auth } = useAuth();
 
     const { register, handleSubmit, formState: { errors } } = useForm( {mode: "onChange"});
     const [ alerta, setAlerta ] = useState({});
@@ -18,15 +18,16 @@ export const Login = () => {
         // const { username, password } = formData;
         try {
             const { data } = await clienteAxios.post('/auth/login', formData);
-            console.log('Despues de la validacion', data.token);
+            // console.log('Despues de la validacion', data.token);
             setAlerta({});
             if (data.confirmado) {
                 localStorage.setItem('token', data.token);
-                console.log('Usuario confirmado');
-                navigate('/admin');
+                setAuth(data);
+                // console.log('Usuario confirmado');
+                navigate('/inicio');
             }
             else {
-                navigate(`/confirmar/${data.token}`);
+                navigate(`confirmar/${data.token}`);
             }
             setAlerta({});
         } catch (error) {

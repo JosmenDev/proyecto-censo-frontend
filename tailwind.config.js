@@ -7,7 +7,8 @@ export default {
   darkMode: 'class',
   theme: {
     fontFamily: {
-      montserrat: ['Montserrat', 'sans-serif'],
+      poppins: ['poppins', 'sans-serif'],
+      
     },
     screens: {
       '2xsm': '375px',

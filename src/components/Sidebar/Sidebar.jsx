@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import LogoMenu from '../../assets/images/logo-menu.svg';
-import { Bars3Icon, DocumentChartBarIcon, DocumentCheckIcon, HomeIcon, ListBulletIcon, MapPinIcon, UserGroupIcon, UserIcon, UsersIcon } from '@heroicons/react/24/solid';
+import { Bars3Icon, DocumentChartBarIcon, DocumentCheckIcon, ListBulletIcon, MapPinIcon, UserGroupIcon, UserIcon, UsersIcon, Squares2X2Icon } from '@heroicons/react/24/solid';
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const location = useLocation();
@@ -58,7 +58,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         >
             {/* SIDEBAR HEADER */}
             <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-                <NavLink to="/">
+                <NavLink to="/inicio">
                     <img src={LogoMenu} alt="Logo" />
                 </NavLink>
 
@@ -69,7 +69,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 aria-expanded={sidebarOpen}
                 className="block lg:hidden"
                 >
-                    <Bars3Icon  className="size-6" />  
+                    <Bars3Icon  className="size-5" />  
                 </button>
             </div>
             {/* SIDEBAR HEADER */}
@@ -79,15 +79,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
                 {/* Menu Group */}
                     <div>
-                        <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">MENU</h3>
+                        <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">GENERAL</h3>
                         <ul className="mb-6 flex flex-col gap-1.5">
                             {/* Menu Inicio */}
                             <li>
                                 <NavLink
-                                to="/calendar"
-                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') && 'bg-graydark dark:bg-meta-4'}`}
+                                to="/inicio"
+                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('inicio') && 'bg-graydark dark:bg-meta-4'}`}
                                 >
-                                <HomeIcon className="size-6" />
+                                <Squares2X2Icon className="size-5" />
                                 Inicio
                                 </NavLink>
                             </li>
@@ -95,7 +95,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             {/* More menu items can be added here */}
                             <SidebarLinkGroup
                                 activeCondition={
-                                    pathname === '/forms' || pathname.includes('forms')
+                                    pathname === '/inicio' || pathname.includes('inicio')
                                 }
                                 >
                                 {(handleClick, open) => (
@@ -103,7 +103,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                         <NavLink
                                             to="#"
                                             className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                            (pathname === '/forms' || pathname.includes('forms')) &&
+                                            (pathname === '/adm-usuarios' || pathname.includes('adm-usuarios')) &&
                                             'bg-graydark dark:bg-meta-4'
                                             }`}
                                             onClick={(e) => {
@@ -111,7 +111,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                             sidebarExpanded ? handleClick() : setSidebarExpanded(true);
                                             }}
                                         >
-                                            <UserIcon className="size-6" />
+                                            <UserIcon className="size-5" />
                                             Adm. Usuarios
                                             <svg
                                             className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'}`}
@@ -134,7 +134,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                             <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-elements"
+                                                    to="/adm-usuarios/personal"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -145,7 +145,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/adm-usuarios/cargo"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -156,7 +156,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/adm-usuarios/usuario"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -173,10 +173,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             </SidebarLinkGroup>
                             <li>
                                 <NavLink
-                                to="/calendar"
+                                to="/equipo"
                                 className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') && 'bg-graydark dark:bg-meta-4'}`}
                                 >
-                                <UserGroupIcon className="size-6" />
+                                <UserGroupIcon className="size-5" />
                                 Equipos
                                 </NavLink>
                             </li>
@@ -188,7 +188,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             {/* More menu items can be added here */}
                             <SidebarLinkGroup
                                 activeCondition={
-                                    pathname === '/forms' || pathname.includes('forms')
+                                    pathname === '/req-persona' || pathname.includes('req-persona')
                                 }
                                 >
                                 {(handleClick, open) => (
@@ -196,7 +196,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                         <NavLink
                                             to="#"
                                             className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                            (pathname === '/forms' || pathname.includes('forms')) &&
+                                            (pathname === '/req-persona' || pathname.includes('req-persona')) &&
                                             'bg-graydark dark:bg-meta-4'
                                             }`}
                                             onClick={(e) => {
@@ -204,7 +204,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                             sidebarExpanded ? handleClick() : setSidebarExpanded(true);
                                             }}
                                         >
-                                            <UsersIcon className="size-6" />
+                                            <UsersIcon className="size-5" />
                                             Req. Persona
                                             <svg
                                             className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'}`}
@@ -227,7 +227,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                             <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-elements"
+                                                    to="/req-persona/ocupacion"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -238,7 +238,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-persona/religion"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -249,7 +249,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-persona/parentesco"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -260,7 +260,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-persona/cargo-comunidad"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -271,7 +271,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-persona/tipo-discapacidad"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -282,7 +282,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-persona/accion-emergencia"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -293,7 +293,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-persona/seguro-salud"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -304,7 +304,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-persona/grupo-etnico"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -315,7 +315,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-persona/nivel-educativo"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -326,7 +326,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-persona/medio-informacion"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -337,7 +337,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-persona/enfermedad"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -354,7 +354,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             </SidebarLinkGroup>
                             <SidebarLinkGroup
                                 activeCondition={
-                                    pathname === '/forms' || pathname.includes('forms')
+                                    pathname === '/req-localizacion' || pathname.includes('req-localizacion')
                                 }
                                 >
                                 {(handleClick, open) => (
@@ -362,7 +362,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                         <NavLink
                                             to="#"
                                             className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                            (pathname === '/forms' || pathname.includes('forms')) &&
+                                            (pathname === '/req-localizacion' || pathname.includes('req-localizacion')) &&
                                             'bg-graydark dark:bg-meta-4'
                                             }`}
                                             onClick={(e) => {
@@ -370,7 +370,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                             sidebarExpanded ? handleClick() : setSidebarExpanded(true);
                                             }}
                                         >
-                                            <MapPinIcon className="size-6" />
+                                            <MapPinIcon className="size-5" />
                                             Req. Localización Vivienda
                                             <svg
                                             className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'}`}
@@ -393,7 +393,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                             <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-elements"
+                                                    to="req-localizacion/sector"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -404,7 +404,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="req-localizacion/centro-poblado"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -421,7 +421,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             </SidebarLinkGroup>
                             <SidebarLinkGroup
                                 activeCondition={
-                                    pathname === '/forms' || pathname.includes('forms')
+                                    pathname === '/req-caracteristicas' || pathname.includes('req-caracteristicas')
                                 }
                                 >
                                 {(handleClick, open) => (
@@ -429,7 +429,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                         <NavLink
                                             to="#"
                                             className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                            (pathname === '/forms' || pathname.includes('forms')) &&
+                                            (pathname === '/req-caracteristicas' || pathname.includes('req-caracteristicas')) &&
                                             'bg-graydark dark:bg-meta-4'
                                             }`}
                                             onClick={(e) => {
@@ -437,7 +437,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                             sidebarExpanded ? handleClick() : setSidebarExpanded(true);
                                             }}
                                         >
-                                            <ListBulletIcon className="size-6" />
+                                            <ListBulletIcon className="size-5" />
                                             Req. Características Vivienda
                                             <svg
                                             className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'}`}
@@ -460,7 +460,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                             <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-elements"
+                                                    to="/req-caracteristicas/material-vivienda"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -471,7 +471,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-caracteristicas/servicio-higienico"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -482,7 +482,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-caracteristicas/disposicion-basura"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -493,7 +493,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-caracteristicas/cloracion"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -504,7 +504,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-caracteristicas/combustible-cocina"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -515,7 +515,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                 </li>
                                                 <li>
                                                     <NavLink
-                                                    to="/forms/form-layout"
+                                                    to="/req-caracteristicas/medida-proteccion"
                                                     className={({ isActive }) =>
                                                         'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                                         (isActive && '!text-white')
@@ -538,10 +538,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             {/* Menu Inicio */}
                             <li>
                                 <NavLink
-                                to="/calendar"
-                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') && 'bg-graydark dark:bg-meta-4'}`}
+                                to="/ficha-familiar"
+                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('ficha-familiar') && 'bg-graydark dark:bg-meta-4'}`}
                                 >
-                                <DocumentCheckIcon className="size-6" />
+                                <DocumentCheckIcon className="size-5" />
                                 Ficha Familiar
                                 </NavLink>
                             </li>
@@ -552,19 +552,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         <ul className="mb-6 flex flex-col gap-1.5">
                             <li>
                                 <NavLink
-                                to="/calendar"
-                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') && 'bg-graydark dark:bg-meta-4'}`}
+                                to="/reporte-ficha"
+                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('reporte-ficha') && 'bg-graydark dark:bg-meta-4'}`}
                                 >
-                                <DocumentChartBarIcon className="size-6" />
+                                <DocumentChartBarIcon className="size-5" />
                                 Reporte Fichas Familiares
                                 </NavLink>
                             </li>
                             <li>
                                 <NavLink
-                                to="/calendar"
-                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') && 'bg-graydark dark:bg-meta-4'}`}
+                                to="/reporte-enfermedad"
+                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('reporte-enfermedad') && 'bg-graydark dark:bg-meta-4'}`}
                                 >
-                                <DocumentChartBarIcon className="size-6" />
+                                <DocumentChartBarIcon className="size-5" />
                                 Reporte Enfermedades
                                 </NavLink>
                             </li>
