@@ -2,10 +2,35 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ClickOutside from '../ClickOutside';
 import UserMedico from '../../assets/images/user-medico.png';
-import { ArrowLeftEndOnRectangleIcon, UserCircleIcon, UserIcon } from '@heroicons/react/24/solid';
+import { ArrowLeftEndOnRectangleIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2'
+
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { cerrarSesion } = useAuth();
+
+  const logOut = () => {
+    console.log('Cerrando Sesión');
+    Swal.fire({
+      title: "¿Desea Cerrar Sesión?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, deseo cerrar!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        cerrarSesion();
+        Swal.fire({
+          title: "Sesión cerrada!",
+          icon: "success"
+          
+        });
+      }
+    });
+  }
 
   return (
     <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
@@ -54,13 +79,15 @@ const DropdownUser = () => {
                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
               >
                 <UserCircleIcon className="size-6"/>
-                My Profile
+                Mi Perfil
               </Link>
             </li>
           </ul>
-          <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+          <button 
+          className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={logOut}>
             <ArrowLeftEndOnRectangleIcon  className="size-6"/>
-            Log Out
+            Cerrar Sesión
           </button>
         </div>
       )}
