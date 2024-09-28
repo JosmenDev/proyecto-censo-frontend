@@ -8,7 +8,7 @@ const Footer = () => {
                             {new Date().getFullYear()} © RegiSalud.
                         </div>
                         <div className="hidden lg:block text-right">
-                            Desarrollado por <span className="text-primary">JosmenDev</span>
+                            Desarrollado por <span className="text-success">JosmenDev</span>
                         </div>
                     </div>
                 </div>
