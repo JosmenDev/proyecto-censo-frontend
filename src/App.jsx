@@ -1,8 +1,10 @@
 // Importancion de terceros
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from 'react-redux';
 // Importacion de configuraciones
-import { AuthProvider } from "./context/AuthProvider";
 import roles from "./config/roles"
+// Importacion de redux
+import { Store } from "./redux/Store";
 // Importacion de layouts
 import AuthLayout from "./layout/AuthLayout";
 import RutaProtegida from "./layout/RutaProtegida";
@@ -43,7 +45,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AuthProvider>
+      <Provider store={Store}>
         <Routes>
           {/* Rutas publicas */}
           <Route path="/" element={<AuthLayout/>}>
@@ -97,7 +99,7 @@ function App() {
           </Route>
           
         </Routes>
-      </AuthProvider>
+      </Provider>
     </BrowserRouter>
   )
 }

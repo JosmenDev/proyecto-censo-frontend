@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import ClickOutside from '../ClickOutside';
 import UserMedico from '../../assets/images/user-medico.png';
 import { ArrowLeftEndOnRectangleIcon, UserCircleIcon } from '@heroicons/react/24/solid';
-import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2'
+import { useDispatch } from 'react-redux';
+import { cerrarSesion } from '../../redux/auth/AuthSlice';
 
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { cerrarSesion } = useAuth();
+  const dispatch = useDispatch();
 
   const logOut = () => {
-    console.log('Cerrando Sesión');
     Swal.fire({
       title: "¿Desea Cerrar Sesión?",
       icon: "warning",
@@ -22,7 +22,7 @@ const DropdownUser = () => {
       confirmButtonText: "Si, deseo cerrar!"
     }).then((result) => {
       if (result.isConfirmed) {
-        cerrarSesion();
+        dispatch(cerrarSesion());
         Swal.fire({
           title: "Sesión cerrada!",
           icon: "success"

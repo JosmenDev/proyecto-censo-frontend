@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import useAuth from "../../hooks/useAuth";
 import clienteAxios from "../../config/axios";
 import Alerta from "../../components/Alerta";
+import { useDispatch } from "react-redux";
+import { setAuth } from "../../redux/auth/AuthSlice";
 
 export const Login = () => {
 
-    const { setAuth, auth } = useAuth();
+    const dispatch = useDispatch();
 
     const { register, handleSubmit, formState: { errors } } = useForm( {mode: "onChange"});
     const [ alerta, setAlerta ] = useState({});
@@ -22,7 +23,7 @@ export const Login = () => {
             setAlerta({});
             if (data.confirmado) {
                 localStorage.setItem('token', data.token);
-                setAuth(data);
+                dispatch(setAuth(data));
                 // console.log('Usuario confirmado');
                 navigate('/inicio');
             }
@@ -49,7 +50,7 @@ export const Login = () => {
             <div className="w-full p-4 sm:p-12.5 xl:p-4">
                 <span className="mb-1.5 block font-semibold text-sky-500 text-2xl text-center"> Bienvenido </span>
                 <h2 className="mb-6 text-base font-semibold text-slate-500 dark:text-white sm:text-base text-center">
-                   Inicia Sesión para continuar en RegiSalud
+                    Inicia Sesión para continuar en RegiSalud
                 </h2>
                 {msg && (<Alerta alerta={alerta} />)}
                 <form onSubmit={handleSubmit(onSubmit)}>
