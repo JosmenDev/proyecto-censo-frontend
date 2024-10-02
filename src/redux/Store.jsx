@@ -4,6 +4,8 @@ import CargoSlice from './User/CargoSlice';
 import OcupacionSlice from './Person/OcupacionSlice';
 import ReligionSlice from './Person/ReligionSlice';
 import ParentescoSlice from './Person/ParentescoSlice';
+import CargoComunidadSlice from './Person/CargoComunidadSlice';
+import TipoDiscapacidadSlice from './Person/TipoDiscapacidadSlice';
 
 export const Store = configureStore({
     reducer: {
@@ -11,6 +13,8 @@ export const Store = configureStore({
         cargo: CargoSlice,
         ocupacion: OcupacionSlice,
         religion: ReligionSlice,
-        parentesco: ParentescoSlice
+        parentesco: ParentescoSlice,
+        cargoComunidad: CargoComunidadSlice,
+        tipoDiscapacidad: TipoDiscapacidadSlice
     }
 });

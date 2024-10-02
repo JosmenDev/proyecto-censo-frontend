@@ -57,7 +57,6 @@ export const obtenerReligiones = () => async dispatch  =>  {
     try {
         dispatch(setLoading(true));
         const { data } = await clienteAxios('/religion', config);
-        console.log(data);
         dispatch(setReligiones(data));
         dispatch(setLoading(false));
     } catch (error) {

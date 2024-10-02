@@ -2,24 +2,24 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import Alerta from '../../Alerta';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearOcupacion, guardarOcupacion } from '../../../redux/Person/OcupacionSlice';
+import { clearCargoComunidad, guardarCargoComunidad } from '../../../redux/Person/CargoComunidadSlice';
 
-const FormOcupacion = () => {
+const FormCargoComunidad = () => {
 
     const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm({mode: "onChange"});
 
-    const { ocupacion, loading, error } = useSelector((state) => state.ocupacion);
+    const { cargoComunidad, loading, error } = useSelector((state) => state.cargoComunidad);
     const [ alerta, setAlerta ] = useState({});
 
     useEffect( () => {
-        if (ocupacion) {
-            setValue('nombre', ocupacion.nombre);
+        if (cargoComunidad) {
+            setValue('nombre', cargoComunidad.nombre);
         }
-    }, [ocupacion, setValue]);
+    }, [cargoComunidad, setValue]);
 
     const onSubmit = async formData => {
-        dispatch(guardarOcupacion(formData));
+        dispatch(guardarCargoComunidad(formData));
         reset();
     }
 
@@ -62,13 +62,13 @@ const FormOcupacion = () => {
                             className="w-full cursor-pointer rounded-lg border border-sky-500 bg-sky-400 p-2 text-white transition hover:bg-opacity-90"
                             disabled={loading}
                         >
-                            {loading ? "Procesando..." : !ocupacion? "Guardar" : "Actualizar" }
+                            {loading ? "Procesando..." : !cargoComunidad? "Guardar" : "Actualizar" }
                         </button>
                         <button 
                             type="button"
                             onClick={() => {
                                 reset();
-                                dispatch(clearOcupacion());
+                                dispatch(clearCargoComunidad());
                             }}
                             className="w-full cursor-pointer rounded-lg border border-slate-500 bg-slate-400 p-2 text-white transition hover:bg-opacity-90"
                         >
@@ -81,4 +81,4 @@ const FormOcupacion = () => {
     )
 }
 
-export default FormOcupacion
+export default FormCargoComunidad

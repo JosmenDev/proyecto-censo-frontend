@@ -57,7 +57,6 @@ export const obtenerParentescos = () => async dispatch  =>  {
     try {
         dispatch(setLoading(true));
         const { data } = await clienteAxios('/parentesco', config);
-        console.log(data);
         dispatch(setParentescos(data));
         dispatch(setLoading(false));
     } catch (error) {

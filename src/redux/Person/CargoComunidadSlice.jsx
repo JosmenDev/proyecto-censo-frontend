@@ -4,36 +4,36 @@ import withReactContent from 'sweetalert2-react-content';
 import clienteAxios from "../../config/axios";
 
 const initialState = {
-    ocupaciones: [],
-    ocupacion: null,
+    cargoComunidades: [],
+    cargoComunidad: null,
     loading: false,
     error: null
 };
 
-const OcupacionSlice = createSlice({
-    name: 'ocupacion',
+const CargoComunidadSlice = createSlice({
+    name: 'cargoComunidad',
     initialState,
     reducers: {
-        setOcupaciones (state, action) {
-            state.ocupaciones = action.payload
+        setCargoComunidades (state, action) {
+            state.cargoComunidades = action.payload
         },
-        setOcupacion (state, action ) {
-            state.ocupacion = action.payload
+        setCargoComunidad (state, action ) {
+            state.cargoComunidad = action.payload
         },
         setLoading (state, action) {
             state.loading = action.payload
         },
-        addOcupacion (state, action) {
-            state.ocupaciones = [ ...state.ocupaciones, action.payload]
+        addCargoComunidad (state, action) {
+            state.cargoComunidades = [ ...state.cargoComunidades, action.payload]
         },
-        updateOcupacion (state, action) {
-            const index = state.ocupaciones.findIndex(ocupacion => ocupacion.id === action.payload.id)
+        updateCargoComunidad (state, action) {
+            const index = state.cargoComunidades.findIndex(cargoComunidad => cargoComunidad.id === action.payload.id)
             if (index !== -1) {
-                state.ocupaciones[index] = action.payload
+                state.cargoComunidades[index] = action.payload
             }
         },
-        clearOcupacion(state) {
-            state.ocupacion = null
+        clearCargoComunidad(state) {
+            state.cargoComunidad = null
         },
         setError (state, action) {
             state.error = action.payload
@@ -41,11 +41,11 @@ const OcupacionSlice = createSlice({
     }
 });
 
-export const { setOcupaciones, setOcupacion, setLoading, addOcupacion, updateOcupacion, clearOcupacion, setError} = OcupacionSlice.actions;
+export const { setCargoComunidades, setCargoComunidad, setLoading, addCargoComunidad, updateCargoComunidad, clearCargoComunidad, setError} = CargoComunidadSlice.actions;
 
 const MySwal = withReactContent(Swal);
 
-export const obtenerOcupaciones = () => async dispatch  =>  {
+export const obtenerCargoComunidades = () => async dispatch  =>  {
     const token = localStorage.getItem('token');
     if (!token) return;
     const config = {
@@ -56,16 +56,16 @@ export const obtenerOcupaciones = () => async dispatch  =>  {
     }
     try {
         dispatch(setLoading(true));
-        const { data } = await clienteAxios('/ocupacion', config);
-        dispatch(setOcupaciones(data));
+        const { data } = await clienteAxios('/cargoComunidad', config);
+        dispatch(setCargoComunidades(data));
         dispatch(setLoading(false));
     } catch (error) {
-        dispatch(setError(error.response?.data?.msg || "Error al Obtener ocupaciones"));
+        dispatch(setError(error.response?.data?.msg || "Error al obtener cargos de comunidad"));
         dispatch(setLoading(false));
     }
 }
 
-export const guardarOcupacion = (ocupacion) => async (dispatch, getState) => {
+export const guardarCargoComunidad = (cargoComunidad) => async (dispatch, getState) => {
     const token = localStorage.getItem('token');
     if (!token) return;
     const config = {
@@ -75,33 +75,33 @@ export const guardarOcupacion = (ocupacion) => async (dispatch, getState) => {
         }
     }
 
-    const { ocupacion : ocupacionSeleccionada } = getState().ocupacion;
+    const { cargoComunidad : cargoComunidadSeleccionada } = getState().cargoComunidad;
     try {
-        if (ocupacionSeleccionada) {
+        if (cargoComunidadSeleccionada) {
             dispatch(setLoading(true));
-            const { data } = await clienteAxios.put(`/ocupacion/${ocupacionSeleccionada.id}`, ocupacion, config);
-            dispatch(updateOcupacion(data));
+            const { data } = await clienteAxios.put(`/cargoComunidad/${cargoComunidadSeleccionada.id}`, cargoComunidad, config);
+            dispatch(updateCargoComunidad(data));
         } else {
             dispatch(setLoading(true));
-            const { data } = await clienteAxios.post('/ocupacion', ocupacion, config);
-            dispatch(addOcupacion(data));
+            const { data } = await clienteAxios.post('/cargoComunidad', cargoComunidad, config);
+            dispatch(addCargoComunidad(data));
         }
         Swal.fire({
             position: "top",
             icon: "success",
-            title: ocupacionSeleccionada? "Registro Actualizado Correctamente" : "Registro Guardado Correctamente",
+            title: cargoComunidadSeleccionada? "Registro Actualizado Correctamente" : "Registro Guardado Correctamente",
             showConfirmButton: false,
             timer: 1000
         });
-        dispatch(clearOcupacion());
+        dispatch(clearCargoComunidad());
         dispatch(setLoading(false));
     } catch (error) {
-        dispatch(setError(error.response?.data?.msg || "Error al guardar Ocupación"));
+        dispatch(setError(error.response?.data?.msg || "Error al guardar Cargo de Comunidad"));
         dispatch(setLoading(false));
     }
 }
 
-export const eliminarOcupacion = (id) => async (dispatch, getState) => {
+export const eliminarCargoComunidad = (id) => async (dispatch, getState) => {
 
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -123,9 +123,9 @@ export const eliminarOcupacion = (id) => async (dispatch, getState) => {
         if (result.isConfirmed) {
             try {
                 dispatch(setLoading(true));
-                await clienteAxios.patch(`/ocupacion/${id}`, {estado: false}, config);
-                const { ocupaciones } = getState().ocupacion;
-                dispatch(setOcupaciones(ocupaciones.filter(ocupacion => ocupacion.id !== id)));
+                await clienteAxios.patch(`/cargoComunidad/${id}`, {estado: false}, config);
+                const { cargoComunidades } = getState().cargoComunidad;
+                dispatch(setCargoComunidades(cargoComunidades.filter(cargoComunidad => cargoComunidad.id !== id)));
     
                 Swal.fire({
                     position: "top",
@@ -135,7 +135,7 @@ export const eliminarOcupacion = (id) => async (dispatch, getState) => {
                     timer: 1000
                 });
             } catch (error) {
-                dispatch(setError(error.response?.data.msg || "Error al eliminar ocupación"));
+                dispatch(setError(error.response?.data.msg || "Error al eliminar cargo de comunidad"));
             } finally {
                 dispatch(setLoading(false));
             }
@@ -145,4 +145,4 @@ export const eliminarOcupacion = (id) => async (dispatch, getState) => {
 }
 
 
-export default OcupacionSlice.reducer;
+export default CargoComunidadSlice.reducer;
