@@ -8,6 +8,8 @@ import CargoComunidadSlice from './Person/CargoComunidadSlice';
 import TipoDiscapacidadSlice from './Person/TipoDiscapacidadSlice';
 import AccionEmergenciaSlice from './Person/AccionEmergenciaSlice';
 import SeguroSaludSlice from './Person/SeguroSaludSlice';
+import GrupoEtnicoSlice from './Person/GrupoEtnicoSlice';
+import NivelEducativoSlice from './Person/NivelEducativoSlice';
 
 export const Store = configureStore({
     reducer: {
@@ -19,6 +21,8 @@ export const Store = configureStore({
         cargoComunidad: CargoComunidadSlice,
         tipoDiscapacidad: TipoDiscapacidadSlice,
         accionEmergencia: AccionEmergenciaSlice,
-        seguroSalud: SeguroSaludSlice
+        seguroSalud: SeguroSaludSlice,
+        grupoEtnico: GrupoEtnicoSlice,
+        nivelEducativo: NivelEducativoSlice
     }
 });
