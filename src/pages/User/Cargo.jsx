@@ -1,6 +1,6 @@
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import DataTableDefault from '../../components/Tables/DataTableDefault'
-import FormDefault from '../../components/Forms/FormDefault';
+import DataTableCargo from '../../components/Tables/User/DataTableCargo'
+import FormCargo from '../../components/Forms/User/FormCargo';
 
 const Cargo = () => {
     
@@ -16,7 +16,7 @@ const Cargo = () => {
                                 Registro
                             </h3>
                         </div>
-                        <FormDefault/>
+                        <FormCargo/>
                     </div>
                 </div>
                 {/* Div para el listado */}
@@ -27,7 +27,7 @@ const Cargo = () => {
                                 Listado
                             </h3>
                         </div>
-                            <DataTableDefault />
+                            <DataTableCargo />
                     </div>
                 </div>
             </div>
