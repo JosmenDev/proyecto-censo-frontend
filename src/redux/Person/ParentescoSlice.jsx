@@ -4,36 +4,36 @@ import withReactContent from 'sweetalert2-react-content';
 import clienteAxios from "../../config/axios";
 
 const initialState = {
-    ocupaciones: [],
-    ocupacion: null,
+    parentescos: [],
+    parentesco: null,
     loading: false,
     error: null
 };
 
-const OcupacionSlice = createSlice({
-    name: 'ocupacion',
+const ParentescoSlice = createSlice({
+    name: 'parentesco',
     initialState,
     reducers: {
-        setOcupaciones (state, action) {
-            state.ocupaciones = action.payload
+        setParentescos (state, action) {
+            state.parentescos = action.payload
         },
-        setOcupacion (state, action ) {
-            state.ocupacion = action.payload
+        setParentesco (state, action ) {
+            state.parentesco = action.payload
         },
         setLoading (state, action) {
             state.loading = action.payload
         },
-        addOcupacion (state, action) {
-            state.ocupaciones = [ ...state.ocupaciones, action.payload]
+        addParentesco (state, action) {
+            state.parentescos = [ ...state.parentescos, action.payload]
         },
-        updateOcupacion (state, action) {
-            const index = state.ocupaciones.findIndex(ocupacion => ocupacion.id === action.payload.id)
+        updateParentesco (state, action) {
+            const index = state.parentescos.findIndex(parentesco => parentesco.id === action.payload.id)
             if (index !== -1) {
-                state.ocupaciones[index] = action.payload
+                state.parentescos[index] = action.payload
             }
         },
-        clearOcupacion(state) {
-            state.ocupacion = null
+        clearParentesco(state) {
+            state.parentesco = null
         },
         setError (state, action) {
             state.error = action.payload
@@ -41,11 +41,11 @@ const OcupacionSlice = createSlice({
     }
 });
 
-export const { setOcupaciones, setOcupacion, setLoading, addOcupacion, updateOcupacion, clearOcupacion, setError} = OcupacionSlice.actions;
+export const { setParentescos, setParentesco, setLoading, addParentesco, updateParentesco, clearParentesco, setError} = ParentescoSlice.actions;
 
 const MySwal = withReactContent(Swal);
 
-export const obtenerOcupaciones = () => async dispatch  =>  {
+export const obtenerParentescos = () => async dispatch  =>  {
     const token = localStorage.getItem('token');
     if (!token) return;
     const config = {
@@ -56,17 +56,17 @@ export const obtenerOcupaciones = () => async dispatch  =>  {
     }
     try {
         dispatch(setLoading(true));
-        const { data } = await clienteAxios('/ocupacion', config);
+        const { data } = await clienteAxios('/parentesco', config);
         console.log(data);
-        dispatch(setOcupaciones(data));
+        dispatch(setParentescos(data));
         dispatch(setLoading(false));
     } catch (error) {
-        dispatch(setError(error.response?.data?.msg || "Error al Obtener ocupaciones"));
+        dispatch(setError(error.response?.data?.msg || "Error al obtener parentescos"));
         dispatch(setLoading(false));
     }
 }
 
-export const guardarOcupacion = (ocupacion) => async (dispatch, getState) => {
+export const guardarParentesco = (parentesco) => async (dispatch, getState) => {
     const token = localStorage.getItem('token');
     if (!token) return;
     const config = {
@@ -76,33 +76,33 @@ export const guardarOcupacion = (ocupacion) => async (dispatch, getState) => {
         }
     }
 
-    const { ocupacion : ocupacionSeleccionada } = getState().ocupacion;
+    const { parentesco : parentescoSeleccionada } = getState().parentesco;
     try {
-        if (ocupacionSeleccionada) {
+        if (parentescoSeleccionada) {
             dispatch(setLoading(true));
-            const { data } = await clienteAxios.put(`/ocupacion/${ocupacionSeleccionada.id}`, ocupacion, config);
-            dispatch(updateOcupacion(data));
+            const { data } = await clienteAxios.put(`/parentesco/${parentescoSeleccionada.id}`, parentesco, config);
+            dispatch(updateParentesco(data));
         } else {
             dispatch(setLoading(true));
-            const { data } = await clienteAxios.post('/ocupacion', ocupacion, config);
-            dispatch(addOcupacion(data));
+            const { data } = await clienteAxios.post('/parentesco', parentesco, config);
+            dispatch(addParentesco(data));
         }
         Swal.fire({
             position: "top",
             icon: "success",
-            title: ocupacionSeleccionada? "Registro Actualizado Correctamente" : "Registro Guardado Correctamente",
+            title: parentescoSeleccionada? "Registro Actualizado Correctamente" : "Registro Guardado Correctamente",
             showConfirmButton: false,
             timer: 1000
         });
-        dispatch(clearOcupacion());
+        dispatch(clearParentesco());
         dispatch(setLoading(false));
     } catch (error) {
-        dispatch(setError(error.response?.data?.msg || "Error al guardar Ocupación"));
+        dispatch(setError(error.response?.data?.msg || "Error al guardar Parentesco"));
         dispatch(setLoading(false));
     }
 }
 
-export const eliminarOcupacion = (id) => async (dispatch, getState) => {
+export const eliminarParentesco = (id) => async (dispatch, getState) => {
 
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -124,9 +124,9 @@ export const eliminarOcupacion = (id) => async (dispatch, getState) => {
         if (result.isConfirmed) {
             try {
                 dispatch(setLoading(true));
-                await clienteAxios.patch(`/ocupacion/${id}`, {estado: false}, config);
-                const { ocupaciones } = getState().ocupacion;
-                dispatch(setOcupaciones(ocupaciones.filter(ocupacion => ocupacion.id !== id)));
+                await clienteAxios.patch(`/parentesco/${id}`, {estado: false}, config);
+                const { parentescos } = getState().parentesco;
+                dispatch(setParentescos(parentescos.filter(parentesco => parentesco.id !== id)));
     
                 Swal.fire({
                     position: "top",
@@ -136,7 +136,7 @@ export const eliminarOcupacion = (id) => async (dispatch, getState) => {
                     timer: 1000
                 });
             } catch (error) {
-                dispatch(setError(error.response?.data.msg || "Error al eliminar ocupación"));
+                dispatch(setError(error.response?.data.msg || "Error al eliminar Parentesco"));
             } finally {
                 dispatch(setLoading(false));
             }
@@ -146,4 +146,4 @@ export const eliminarOcupacion = (id) => async (dispatch, getState) => {
 }
 
 
-export default OcupacionSlice.reducer;
+export default ParentescoSlice.reducer;

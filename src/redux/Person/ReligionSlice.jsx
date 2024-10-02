@@ -4,36 +4,36 @@ import withReactContent from 'sweetalert2-react-content';
 import clienteAxios from "../../config/axios";
 
 const initialState = {
-    ocupaciones: [],
-    ocupacion: null,
+    religiones: [],
+    religion: null,
     loading: false,
     error: null
 };
 
-const OcupacionSlice = createSlice({
-    name: 'ocupacion',
+const ReligionSlice = createSlice({
+    name: 'religion',
     initialState,
     reducers: {
-        setOcupaciones (state, action) {
-            state.ocupaciones = action.payload
+        setReligiones (state, action) {
+            state.religiones = action.payload
         },
-        setOcupacion (state, action ) {
-            state.ocupacion = action.payload
+        setReligion (state, action ) {
+            state.religion = action.payload
         },
         setLoading (state, action) {
             state.loading = action.payload
         },
-        addOcupacion (state, action) {
-            state.ocupaciones = [ ...state.ocupaciones, action.payload]
+        addReligion (state, action) {
+            state.religiones = [ ...state.religiones, action.payload]
         },
-        updateOcupacion (state, action) {
-            const index = state.ocupaciones.findIndex(ocupacion => ocupacion.id === action.payload.id)
+        updateReligion (state, action) {
+            const index = state.religiones.findIndex(religion => religion.id === action.payload.id)
             if (index !== -1) {
-                state.ocupaciones[index] = action.payload
+                state.religiones[index] = action.payload
             }
         },
-        clearOcupacion(state) {
-            state.ocupacion = null
+        clearReligion(state) {
+            state.religion = null
         },
         setError (state, action) {
             state.error = action.payload
@@ -41,11 +41,11 @@ const OcupacionSlice = createSlice({
     }
 });
 
-export const { setOcupaciones, setOcupacion, setLoading, addOcupacion, updateOcupacion, clearOcupacion, setError} = OcupacionSlice.actions;
+export const { setReligiones, setReligion, setLoading, addReligion, updateReligion, clearReligion, setError} = ReligionSlice.actions;
 
 const MySwal = withReactContent(Swal);
 
-export const obtenerOcupaciones = () => async dispatch  =>  {
+export const obtenerReligiones = () => async dispatch  =>  {
     const token = localStorage.getItem('token');
     if (!token) return;
     const config = {
@@ -56,17 +56,17 @@ export const obtenerOcupaciones = () => async dispatch  =>  {
     }
     try {
         dispatch(setLoading(true));
-        const { data } = await clienteAxios('/ocupacion', config);
+        const { data } = await clienteAxios('/religion', config);
         console.log(data);
-        dispatch(setOcupaciones(data));
+        dispatch(setReligiones(data));
         dispatch(setLoading(false));
     } catch (error) {
-        dispatch(setError(error.response?.data?.msg || "Error al Obtener ocupaciones"));
+        dispatch(setError(error.response?.data?.msg || "Error al obtener Religiones"));
         dispatch(setLoading(false));
     }
 }
 
-export const guardarOcupacion = (ocupacion) => async (dispatch, getState) => {
+export const guardarReligion = (religion) => async (dispatch, getState) => {
     const token = localStorage.getItem('token');
     if (!token) return;
     const config = {
@@ -76,33 +76,33 @@ export const guardarOcupacion = (ocupacion) => async (dispatch, getState) => {
         }
     }
 
-    const { ocupacion : ocupacionSeleccionada } = getState().ocupacion;
+    const { religion : religionSeleccionada } = getState().religion;
     try {
-        if (ocupacionSeleccionada) {
+        if (religionSeleccionada) {
             dispatch(setLoading(true));
-            const { data } = await clienteAxios.put(`/ocupacion/${ocupacionSeleccionada.id}`, ocupacion, config);
-            dispatch(updateOcupacion(data));
+            const { data } = await clienteAxios.put(`/religion/${religionSeleccionada.id}`, religion, config);
+            dispatch(updateReligion(data));
         } else {
             dispatch(setLoading(true));
-            const { data } = await clienteAxios.post('/ocupacion', ocupacion, config);
-            dispatch(addOcupacion(data));
+            const { data } = await clienteAxios.post('/religion', religion, config);
+            dispatch(addReligion(data));
         }
         Swal.fire({
             position: "top",
             icon: "success",
-            title: ocupacionSeleccionada? "Registro Actualizado Correctamente" : "Registro Guardado Correctamente",
+            title: religionSeleccionada? "Registro Actualizado Correctamente" : "Registro Guardado Correctamente",
             showConfirmButton: false,
             timer: 1000
         });
-        dispatch(clearOcupacion());
+        dispatch(clearReligion());
         dispatch(setLoading(false));
     } catch (error) {
-        dispatch(setError(error.response?.data?.msg || "Error al guardar Ocupación"));
+        dispatch(setError(error.response?.data?.msg || "Error al guardar Religión"));
         dispatch(setLoading(false));
     }
 }
 
-export const eliminarOcupacion = (id) => async (dispatch, getState) => {
+export const eliminarReligion = (id) => async (dispatch, getState) => {
 
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -124,9 +124,9 @@ export const eliminarOcupacion = (id) => async (dispatch, getState) => {
         if (result.isConfirmed) {
             try {
                 dispatch(setLoading(true));
-                await clienteAxios.patch(`/ocupacion/${id}`, {estado: false}, config);
-                const { ocupaciones } = getState().ocupacion;
-                dispatch(setOcupaciones(ocupaciones.filter(ocupacion => ocupacion.id !== id)));
+                await clienteAxios.patch(`/religion/${id}`, {estado: false}, config);
+                const { religiones } = getState().religion;
+                dispatch(setReligiones(religiones.filter(religion => religion.id !== id)));
     
                 Swal.fire({
                     position: "top",
@@ -136,7 +136,7 @@ export const eliminarOcupacion = (id) => async (dispatch, getState) => {
                     timer: 1000
                 });
             } catch (error) {
-                dispatch(setError(error.response?.data.msg || "Error al eliminar ocupación"));
+                dispatch(setError(error.response?.data.msg || "Error al eliminar Religión"));
             } finally {
                 dispatch(setLoading(false));
             }
@@ -146,4 +146,4 @@ export const eliminarOcupacion = (id) => async (dispatch, getState) => {
 }
 
 
-export default OcupacionSlice.reducer;
+export default ReligionSlice.reducer;
