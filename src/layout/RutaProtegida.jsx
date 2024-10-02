@@ -27,7 +27,7 @@ const RutaProtegida = ({ allowRoles }) => {
             <div className="dark:bg-boxdark-2 dark:text-bodydark font-poppins text-sm ">
                 <div className="flex h-screen overflow-hidden">
                     <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-                    <div className="flex flex-1 flex-col gap-5 min-h-screen overflow-y-auto overflow-x-hidden">
+                    <div className="flex flex-1 flex-col gap-5 min-h-screen overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-slate-400 scrollbar-track-transparent dark:scrollbar-thumb-cyan-600 ">
                         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
                         <main className="flex-grow">
                             <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
