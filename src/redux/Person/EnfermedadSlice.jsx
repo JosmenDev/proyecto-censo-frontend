@@ -4,36 +4,36 @@ import withReactContent from 'sweetalert2-react-content';
 import clienteAxios from "../../config/axios";
 
 const initialState = {
-    nivelEducativos: [],
-    nivelEducativo: null,
+    enfermedades: [],
+    enfermedad: null,
     loading: false,
     error: null
 };
 
-const NivelEducativoSlice = createSlice({
-    name: 'nivelEducativo',
+const EnfermedadSlice = createSlice({
+    name: 'Enfermedad',
     initialState,
     reducers: {
-        setNivelEducativos (state, action) {
-            state.nivelEducativos = action.payload
+        setEnfermedades (state, action) {
+            state.enfermedades = action.payload
         },
-        setNivelEducativo (state, action ) {
-            state.nivelEducativo = action.payload
+        setEnfermedad (state, action ) {
+            state.enfermedad = action.payload
         },
         setLoading (state, action) {
             state.loading = action.payload
         },
-        addNivelEducativo (state, action) {
-            state.nivelEducativos = [ ...state.nivelEducativos, action.payload]
+        addEnfermedad (state, action) {
+            state.enfermedades = [ ...state.enfermedades, action.payload]
         },
-        updateNivelEducativo (state, action) {
-            const index = state.nivelEducativos.findIndex(nivelEducativo => nivelEducativo.id === action.payload.id)
+        updateEnfermedad (state, action) {
+            const index = state.enfermedades.findIndex(enfermedad => enfermedad.id === action.payload.id)
             if (index !== -1) {
-                state.nivelEducativos[index] = action.payload
+                state.enfermedades[index] = action.payload
             }
         },
-        clearNivelEducativo(state) {
-            state.nivelEducativo = null
+        clearEnfermedad(state) {
+            state.enfermedad = null
         },
         setError (state, action) {
             state.error = action.payload
@@ -41,11 +41,11 @@ const NivelEducativoSlice = createSlice({
     }
 });
 
-export const { setNivelEducativos, setNivelEducativo, setLoading, addNivelEducativo, updateNivelEducativo, clearNivelEducativo, setError} = NivelEducativoSlice.actions;
+export const { setEnfermedades, setEnfermedad, setLoading, addEnfermedad, updateEnfermedad, clearEnfermedad, setError} = EnfermedadSlice.actions;
 
 const MySwal = withReactContent(Swal);
 
-export const obtenerNivelEducativos = () => async dispatch  =>  {
+export const obtenerEnfermedades = () => async dispatch  =>  {
     const token = localStorage.getItem('token');
     if (!token) return;
     const config = {
@@ -56,16 +56,16 @@ export const obtenerNivelEducativos = () => async dispatch  =>  {
     }
     try {
         dispatch(setLoading(true));
-        const { data } = await clienteAxios('/nivelEducativo', config);
-        dispatch(setNivelEducativos(data));
+        const { data } = await clienteAxios('/enfermedad', config);
+        dispatch(setEnfermedades(data));
         dispatch(setLoading(false));
     } catch (error) {
-        dispatch(setError(error.response?.data?.msg || "Error al obtener Niveles Educativos"));
+        dispatch(setError(error.response?.data?.msg || "Error al obtener Enfermedades"));
         dispatch(setLoading(false));
     }
 }
 
-export const guardarNivelEducativo = (nivelEducativo) => async (dispatch, getState) => {
+export const guardarEnfermedad = (enfermedad) => async (dispatch, getState) => {
     const token = localStorage.getItem('token');
     if (!token) return;
     const config = {
@@ -75,33 +75,34 @@ export const guardarNivelEducativo = (nivelEducativo) => async (dispatch, getSta
         }
     }
 
-    const { nivelEducativo : nivelEducativoSeleccionado } = getState().nivelEducativo;
+    const { enfermedad : enfermedadSeleccionada } = getState().enfermedad;
     try {
-        if (nivelEducativoSeleccionado) {
+        if (enfermedadSeleccionada) {
             dispatch(setLoading(true));
-            const { data } = await clienteAxios.put(`/nivelEducativo/${nivelEducativoSeleccionado.id}`, nivelEducativo, config);
-            dispatch(updateNivelEducativo(data));
+            const { data } = await clienteAxios.put(`/enfermedad/${enfermedadSeleccionada.id}`, enfermedad, config);
+            dispatch(updateEnfermedad(data));
         } else {
             dispatch(setLoading(true));
-            const { data } = await clienteAxios.post('/nivelEducativo', nivelEducativo, config);
-            dispatch(addNivelEducativo(data));
+            const { data } = await clienteAxios.post('/enfermedad', enfermedad, config);
+            dispatch(addEnfermedad(data));
         }
         Swal.fire({
             position: "top",
             icon: "success",
-            title: nivelEducativoSeleccionado? "Registro Actualizado Correctamente" : "Registro Guardado Correctamente",
+            title: enfermedadSeleccionada? "Registro Actualizado Correctamente" : "Registro Guardado Correctamente",
             showConfirmButton: false,
             timer: 1000
         });
-        dispatch(clearNivelEducativo());
+        dispatch(clearEnfermedad());
         dispatch(setLoading(false));
     } catch (error) {
-        dispatch(setError(error.response?.data?.msg || "Error al guardar Nivel Educativo"));
+        dispatch(setError(error.response?.data?.msg || "Error al guardar Enfermedad"));
         dispatch(setLoading(false));
     }
 }
 
-export const eliminarNivelEducativo = (id) => async (dispatch, getState) => {
+export const eliminarEnfermedad = (id) => async (dispatch, getState) => {
+
     const token = localStorage.getItem('token');
     if (!token) return;
     const config = {
@@ -122,9 +123,9 @@ export const eliminarNivelEducativo = (id) => async (dispatch, getState) => {
         if (result.isConfirmed) {
             try {
                 dispatch(setLoading(true));
-                await clienteAxios.patch(`/nivelEducativo/${id}`, {estado: false}, config);
-                const { nivelEducativos } = getState().nivelEducativo;
-                dispatch(setNivelEducativos(nivelEducativos.filter(nivelEducativo => nivelEducativo.id !== id)));
+                await clienteAxios.patch(`/enfermedad/${id}`, {estado: false}, config);
+                const { enfermedades } = getState().enfermedad;
+                dispatch(setEnfermedades(enfermedades.filter(enfermedad => enfermedad.id !== id)));
     
                 Swal.fire({
                     position: "top",
@@ -134,7 +135,7 @@ export const eliminarNivelEducativo = (id) => async (dispatch, getState) => {
                     timer: 1000
                 });
             } catch (error) {
-                dispatch(setError(error.response?.data.msg || "Error al eliminar Nivel Educativo"));
+                dispatch(setError(error.response?.data.msg || "Error al eliminar Enfermedad"));
             } finally {
                 dispatch(setLoading(false));
             }
@@ -144,4 +145,4 @@ export const eliminarNivelEducativo = (id) => async (dispatch, getState) => {
 }
 
 
-export default NivelEducativoSlice.reducer;
+export default EnfermedadSlice.reducer;
