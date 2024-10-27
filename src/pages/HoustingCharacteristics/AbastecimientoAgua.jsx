@@ -1,11 +1,12 @@
-import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb"
-import FormMedidaProteccion from "../../components/Forms/HoustingCharacteristics/FormMedidaProteccion"
-import DataTableMedidaProteccion from "../../components/Tables/HoustingCharacteristics/DataTableMedidaProteccion"
+import React from 'react'
+import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb'
+import FormAbastecimientoAgua from '../../components/Forms/HoustingCharacteristics/FormAbastecimientoAgua'
+import DataTableAbastecimientoAgua from '../../components/Tables/HoustingCharacteristics/DataTableAbastecimientoAgua'
 
-const MedidaProteccion = () => {
+const AbastecimientoAgua = () => {
     return (
         <>
-            <Breadcrumb pageName="Medidas Protección" parentPage="Requerimientos / Req. Características Vivienda / "/>
+            <Breadcrumb pageName="Abastecimiento Agua" parentPage="Requerimientos / Req. Características Vivienda / "/>
             <div className="grid grid-cols-6 gap-9 sm:grid-cols-6 mx-auto">
                 {/* Div para el registro */}
                 <div className="col-span-6 xl:col-span-2">
@@ -15,7 +16,7 @@ const MedidaProteccion = () => {
                                 Registro
                             </h3>
                         </div>
-                        <FormMedidaProteccion/>
+                        <FormAbastecimientoAgua/>
                     </div>
                 </div>
                 {/* Div para el listado */}
@@ -26,7 +27,7 @@ const MedidaProteccion = () => {
                                 Listado
                             </h3>
                         </div>
-                            <DataTableMedidaProteccion />
+                            <DataTableAbastecimientoAgua />
                     </div>
                 </div>
             </div>
@@ -34,4 +35,4 @@ const MedidaProteccion = () => {
     )
 }
 
-export default MedidaProteccion
+export default AbastecimientoAgua

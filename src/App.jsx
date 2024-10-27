@@ -9,8 +9,8 @@ import { Store } from "./redux/Store";
 import AuthLayout from "./layout/AuthLayout";
 import RutaProtegida from "./layout/RutaProtegida";
 // Importacion de paginas
-import { Login } from "./pages/Autenticacion/Login";
-import ConfirmarCuenta from "./pages/Autenticacion/ConfirmarCuenta";
+import { Login } from "./pages/Auth/Login";
+import ConfirmarCuenta from "./pages/Auth/ConfirmarCuenta";
 import Inicio from "./pages/Home/Inicio";
 import FichaFamiliar from "./pages/FamilyRecord/FichaFamiliar";
 import Personal from "./pages/User/Personal";
@@ -38,6 +38,7 @@ import CombustibleCocina from "./pages/HoustingCharacteristics/CombustibleCocina
 import MedidaProteccion from "./pages/HoustingCharacteristics/MedidaProteccion";
 import ReporteFicha from "./pages/Reports/ReporteFicha";
 import ReporteEnfermedad from "./pages/Reports/ReporteEnfermedad";
+import AbastecimientoAgua from "./pages/HoustingCharacteristics/AbastecimientoAgua";
 function App() {
 
   
@@ -82,6 +83,7 @@ function App() {
             <Route path="/req-localizacion/centro-poblado" element={<CentroPoblado/>}/>
             {/* Req. Caracteristicas */}
             <Route path="/req-caracteristicas/material-vivienda" element={<MaterialVivienda/>}/>
+            <Route path="/req-caracteristicas/abastecimiento-agua" element={<AbastecimientoAgua/>}/>
             <Route path="/req-caracteristicas/servicio-higienico" element={<ServicioHigienico/>}/>
             <Route path="/req-caracteristicas/disposicion-basura" element={<DisposicionBasura/>}/>
             <Route path="/req-caracteristicas/cloracion" element={<Cloracion/>}/>
